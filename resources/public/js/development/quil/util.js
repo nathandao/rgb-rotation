@@ -35,8 +35,8 @@ throw (new Error(["Expecting a keyword, got: ",cljs.core.str.cljs$core$IFn$_invo
  * (length-of-longest-key {}) ;=> 0
  */
 quil.util.length_of_longest_key = (function quil$util$length_of_longest_key(m){
-var or__4131__auto__ = cljs.core.last.call(null,cljs.core.sort.call(null,cljs.core.map.call(null,(function (p1__1348_SHARP_){
-return p1__1348_SHARP_.length();
+var or__4131__auto__ = cljs.core.last.call(null,cljs.core.sort.call(null,cljs.core.map.call(null,(function (p1__35270_SHARP_){
+return p1__35270_SHARP_.length();
 }),cljs.core.keys.call(null,m))));
 if(cljs.core.truth_(or__4131__auto__)){
 return or__4131__auto__;
@@ -51,8 +51,8 @@ return (0);
  * empty string and also without pad in which case it defaults to a single space
  */
 quil.util.gen_padding = (function quil$util$gen_padding(var_args){
-var G__1350 = arguments.length;
-switch (G__1350) {
+var G__35272 = arguments.length;
+switch (G__35272) {
 case 1:
 return quil.util.gen_padding.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -92,10 +92,10 @@ quil.util.gen_padding.cljs$lang$maxFixedArity = 3;
 quil.util.print_definition_list = (function quil$util$print_definition_list(definitions){
 var longest_key = quil.util.length_of_longest_key.call(null,definitions);
 return cljs.core.dorun.call(null,cljs.core.map.call(null,((function (longest_key){
-return (function (p__1352){
-var vec__1353 = p__1352;
-var k = cljs.core.nth.call(null,vec__1353,(0),null);
-var v = cljs.core.nth.call(null,vec__1353,(1),null);
+return (function (p__35274){
+var vec__35275 = p__35274;
+var k = cljs.core.nth.call(null,vec__35275,(0),null);
+var v = cljs.core.nth.call(null,vec__35275,(1),null);
 var len = k.length();
 var diff = (longest_key - len);
 var pad = quil.util.gen_padding.call(null,diff);
@@ -110,29 +110,29 @@ quil.util.prepare_quil_name = (function quil$util$prepare_quil_name(const_keywor
 return clojure.string.replace.call(null,clojure.string.upper_case.call(null,cljs.core.name.call(null,const_keyword)),/-/,"_");
 });
 quil.util.prepare_quil_clj_constants = (function quil$util$prepare_quil_clj_constants(constants){
-return cljs.core.into.call(null,cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.call(null,(function (p1__1356_SHARP_){
-return (new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[p1__1356_SHARP_,cljs.core.symbol.call(null,["PConstants/",cljs.core.str.cljs$core$IFn$_invoke$arity$1(quil.util.prepare_quil_name.call(null,p1__1356_SHARP_))].join(''))],null));
+return cljs.core.into.call(null,cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.call(null,(function (p1__35278_SHARP_){
+return (new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[p1__35278_SHARP_,cljs.core.symbol.call(null,["PConstants/",cljs.core.str.cljs$core$IFn$_invoke$arity$1(quil.util.prepare_quil_name.call(null,p1__35278_SHARP_))].join(''))],null));
 }),constants));
 });
 quil.util.prepare_quil_cljs_constants = (function quil$util$prepare_quil_cljs_constants(constants){
-return cljs.core.into.call(null,cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.call(null,(function (p1__1357_SHARP_){
-return (new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[p1__1357_SHARP_,cljs.core.sequence.call(null,cljs.core.seq.call(null,cljs.core.concat.call(null,(new cljs.core.List(null,new cljs.core.Symbol("cljs.core","aget","cljs.core/aget",6345791,null),null,(1),null)),(new cljs.core.List(null,new cljs.core.Symbol("js","p5.prototype","js/p5.prototype",-1153964427,null),null,(1),null)),(new cljs.core.List(null,quil.util.prepare_quil_name.call(null,p1__1357_SHARP_),null,(1),null)))))],null));
+return cljs.core.into.call(null,cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.call(null,(function (p1__35279_SHARP_){
+return (new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[p1__35279_SHARP_,cljs.core.sequence.call(null,cljs.core.seq.call(null,cljs.core.concat.call(null,(new cljs.core.List(null,new cljs.core.Symbol("cljs.core","aget","cljs.core/aget",6345791,null),null,(1),null)),(new cljs.core.List(null,new cljs.core.Symbol("js","p5.prototype","js/p5.prototype",-1153964427,null),null,(1),null)),(new cljs.core.List(null,quil.util.prepare_quil_name.call(null,p1__35279_SHARP_),null,(1),null)))))],null));
 }),constants));
 });
 quil.util.make_quil_constant_map = (function quil$util$make_quil_constant_map(target,const_map_name,const_map){
 return cljs.core.sequence.call(null,cljs.core.seq.call(null,cljs.core.concat.call(null,(new cljs.core.List(null,new cljs.core.Symbol(null,"def","def",597100991,null),null,(1),null)),(new cljs.core.List(null,const_map_name,null,(1),null)),(new cljs.core.List(null,((cljs.core._EQ_.call(null,target,new cljs.core.Keyword(null,"clj","clj",-660495428)))?quil.util.prepare_quil_clj_constants.call(null,const_map):quil.util.prepare_quil_cljs_constants.call(null,const_map)),null,(1),null)))));
 });
-var ret__4776__auto___1363 = (function (){
+var ret__4776__auto___35285 = (function (){
 quil.util.generate_quil_constants = (function quil$util$generate_quil_constants(var_args){
 var args__4736__auto__ = [];
-var len__4730__auto___1364 = arguments.length;
-var i__4731__auto___1365 = (0);
+var len__4730__auto___35286 = arguments.length;
+var i__4731__auto___35287 = (0);
 while(true){
-if((i__4731__auto___1365 < len__4730__auto___1364)){
-args__4736__auto__.push((arguments[i__4731__auto___1365]));
+if((i__4731__auto___35287 < len__4730__auto___35286)){
+args__4736__auto__.push((arguments[i__4731__auto___35287]));
 
-var G__1366 = (i__4731__auto___1365 + (1));
-i__4731__auto___1365 = G__1366;
+var G__35288 = (i__4731__auto___35287 + (1));
+i__4731__auto___35287 = G__35288;
 continue;
 } else {
 }
@@ -144,23 +144,23 @@ return quil.util.generate_quil_constants.cljs$core$IFn$_invoke$arity$variadic((a
 });
 
 quil.util.generate_quil_constants.cljs$core$IFn$_invoke$arity$variadic = (function (_AMPERSAND_form,_AMPERSAND_env,target,opts){
-return cljs.core.sequence.call(null,cljs.core.seq.call(null,cljs.core.concat.call(null,(new cljs.core.List(null,new cljs.core.Symbol(null,"do","do",1686842252,null),null,(1),null)),cljs.core.map.call(null,(function (p1__1358_SHARP_){
-return quil.util.make_quil_constant_map.call(null,target,cljs.core.first.call(null,p1__1358_SHARP_),cljs.core.second.call(null,p1__1358_SHARP_));
+return cljs.core.sequence.call(null,cljs.core.seq.call(null,cljs.core.concat.call(null,(new cljs.core.List(null,new cljs.core.Symbol(null,"do","do",1686842252,null),null,(1),null)),cljs.core.map.call(null,(function (p1__35280_SHARP_){
+return quil.util.make_quil_constant_map.call(null,target,cljs.core.first.call(null,p1__35280_SHARP_),cljs.core.second.call(null,p1__35280_SHARP_));
 }),cljs.core.partition.call(null,(2),opts)))));
 });
 
 quil.util.generate_quil_constants.cljs$lang$maxFixedArity = (3);
 
 /** @this {Function} */
-quil.util.generate_quil_constants.cljs$lang$applyTo = (function (seq1359){
-var G__1360 = cljs.core.first.call(null,seq1359);
-var seq1359__$1 = cljs.core.next.call(null,seq1359);
-var G__1361 = cljs.core.first.call(null,seq1359__$1);
-var seq1359__$2 = cljs.core.next.call(null,seq1359__$1);
-var G__1362 = cljs.core.first.call(null,seq1359__$2);
-var seq1359__$3 = cljs.core.next.call(null,seq1359__$2);
+quil.util.generate_quil_constants.cljs$lang$applyTo = (function (seq35281){
+var G__35282 = cljs.core.first.call(null,seq35281);
+var seq35281__$1 = cljs.core.next.call(null,seq35281);
+var G__35283 = cljs.core.first.call(null,seq35281__$1);
+var seq35281__$2 = cljs.core.next.call(null,seq35281__$1);
+var G__35284 = cljs.core.first.call(null,seq35281__$2);
+var seq35281__$3 = cljs.core.next.call(null,seq35281__$2);
 var self__4717__auto__ = this;
-return self__4717__auto__.cljs$core$IFn$_invoke$arity$variadic(G__1360,G__1361,G__1362,seq1359__$3);
+return self__4717__auto__.cljs$core$IFn$_invoke$arity$variadic(G__35282,G__35283,G__35284,seq35281__$3);
 });
 
 return null;
@@ -176,4 +176,4 @@ quil.util.clj_unchecked_int = (function quil$util$clj_unchecked_int(v){
 return v;
 });
 
-//# sourceMappingURL=util.js.map
+//# sourceMappingURL=util.js.map?rel=1561561420776

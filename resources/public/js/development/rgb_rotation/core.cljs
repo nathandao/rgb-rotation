@@ -2,62 +2,78 @@
   (:require [quil.core :as q :include-macros true]
             [quil.middleware :as m]))
 
+(def size 280)
+(def scale 0.35)
+(def unit (* 255 scale))
+(def half-unit-inv (- 0 (/ unit 2)))
+(def half-unit (/ unit 2))
+
+
 (defn setup []
   ; Set frame rate to 30 frames per second.
   (q/frame-rate 30)
   ; Set color mode to HSB (HSV) instead of default RGB.
   (q/color-mode :rgb)
+
+  (q/ortho)
+
   ; setup function returns initial state. It contains
   ; circle color and position.
-  {:angle 0})
+  {:delta-x 0
+   :delta-y 0})
 
 (defn update-state [state]
-  ; Update sketch state by changing circle color and position.
-  {:color (mod (+ (:color state) 0.7) 255)
-   :angle (+ (:angle state) 0.1)})
+  (let [steps 40
+        theta-x (/ q/PI 4)
+        theta-y (q/atan (/ 1 (q/sqrt 2)))
+        next-x  (+ (:delta-x state) (/ theta-x steps))
+        next-y  (+ (:delta-y state) (/ theta-y steps))]
+    (if (<= next-x theta-x)
+      {:delta-x (min next-x theta-x)
+       :delta-y (:delta-y state)}
+      {:delta-x (:delta-x state)
+       :delta-y (min next-y theta-y)})))
 
-(def scale 1)
-(def origin (* -127.5 scale))
 (defn shift-coord [v]
-  (let [s (* 127.5 scale)]
-    (- v s)))
+  (- (* scale v) half-unit))
 
 (defn draw-axis []
-  (q/stroke-weight 2)
+  (let [msize (- 0 size)]
+  (q/stroke-weight 1)
+  ;; x
   (q/stroke 255 0 0)
-  (q/line -500 0 0 500 0 0)
-
+  (q/line msize 0 0 size 0 0)
+  ;; y
   (q/stroke 0 255 0)
-  (q/line 0 -500 0 0 500 0)
-
+  (q/line 0 msize 0 0 size 0)
+  ;; z
   (q/stroke 0 0 255)
-  (q/line 0 0 -500 0 0 500))
-
+  (q/line 0 0 msize 0 0 size)))
 
 (defn draw-color [r g b]
   (let [x (shift-coord r)
         y (shift-coord g)
         z (shift-coord b)]
+    (q/stroke r g b)
     (q/with-translation [x y z]
-      (q/stroke r g b)
-      (q/sphere 5))))
+      (q/sphere 2))))
 
 (defn draw-color-vector [r g b]
   (let [x (shift-coord r)
         y (shift-coord g)
         z (shift-coord b)]
-
-    (q/stroke 0 0 0)
+    (q/stroke r g b)
     (q/stroke-weight 1)
-    (q/line origin origin origin x y z)
+    (q/line half-unit-inv half-unit-inv half-unit-inv
+            x y z)
 
     (draw-color r g b)))
 
 (defn draw-rgb-box []
-  (q/stroke 0 0 0)
+  (q/stroke 255 255 255)
   (q/stroke-weight 1)
 
-  (q/box 255)
+  (q/box unit)
 
   (draw-color 0 0 255)
   (draw-color 0 255 0)
@@ -70,33 +86,41 @@
   (draw-color 0 0 0)
   (draw-color 255 255 255))
 
-(defn draw-state [state]
-  ;; Clear the sketch by filling it with light-grey color.
-  (q/background 255)
+(defn draw-camera[]
+  (q/camera 80 -180 80
+            0 0 0
+            0 0 -1))
 
-  (q/ortho)
-  (q/orbit-control)
-
-  #_(q/camera 300 200 20
-            0 1 0
-            0 0 -1)
-  ;; Set circle color.
-  (q/fill 255 255 255 200)
+(defn draw-scene [state]
+  (q/background 20)
+  (q/fill 255 255 255 10)
 
   (draw-axis)
 
-  (q/rotate-y (- 0 (q/atan (/ 1 (q/sqrt 2)))))
-  (q/rotate-x (/ q/PI 4))
+  (q/rotate-y (- 0 (:delta-y state)))
+  (q/rotate-x (:delta-x state))
 
-  (q/with-translation [127.5 127.5 127.5]
+  (q/with-translation [half-unit half-unit half-unit]
     (draw-rgb-box)
-    (draw-color-vector 240 120 200)))
+    (draw-color-vector 0 100 200)))
+
+(defn draw-state [state]
+  (draw-camera)
+
+  (q/rotate-z (/ q/PI 0.85))
+  (q/translate 0 0 -50)
+  (draw-scene state))
+
+(defn draw-state-top [state]
+  (q/background 0)
+  (q/orbit-control)
+  (draw-scene state))
 
 ;; this function is called in index.html
 (defn ^:export run-sketch []
   (q/defsketch rgb-rotation
     :host "rgb-rotation"
-    :size [800 800]
+    :size [size size]
 
     ; setup function called only once, during sketch initialization.
     :setup setup
@@ -104,6 +128,24 @@
     ; update-state is called on each iteration before draw-state.
     :update update-state
     :draw draw-state
+    :renderer :p3d
+
+    ; This sketch uses functional-mode middleware.
+    ; Check quil wiki for more info about middlewares and particularly
+    ; fun-mode.
+    :middleware [m/fun-mode]))
+
+(defn ^:export run-sketch-top []
+  (q/defsketch rgb-rotation-top
+    :host "rgb-rotation-top"
+    :size [size size]
+
+    ; setup function called only once, during sketch initialization.
+    :setup setup
+
+    ; update-state is called on each iteration before draw-state.
+    :update update-state
+    :draw draw-state-top
     :renderer :p3d
 
     ; This sketch uses functional-mode middleware.
