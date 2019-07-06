@@ -4,7 +4,8 @@
   :license {:name "MIT"
             :url "https://opensource.org/licenses/MIT"}
   :dependencies [[org.clojure/clojure "1.9.0"]
-                 [quil "3.0.0"]
+                 [quil "3.0.0" :exclusions [cljsjs/p5]]
+                 [cljsjs/p5 "0.9.0-0"]
                  [reagent "0.8.1"]
                  [org.clojure/clojurescript "1.10.520"]
                  [figwheel-sidecar "0.5.16"]]
