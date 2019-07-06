@@ -49,7 +49,7 @@
 (defn draw-axis [extended]
   (let [start-xz (if extended -size 0)
         start-y (- 0 start-xz)]
-  (q/stroke-weight 2)
+  (q/stroke-weight 1)
   ;; x
   (q/stroke 255 0 0)
   (q/line start-xz 0 0 size 0 0)
@@ -82,7 +82,7 @@
     (q/fill 0 0 0 0)
 
   (q/stroke 255 255 255 100)
-  (q/stroke-weight 1)
+  (q/stroke-weight 2)
   (q/box max-v)
 
   (draw-color 0 0 255)
@@ -97,7 +97,7 @@
   (draw-color 255 255 255))
 
 (defn draw-camera[]
-  (q/camera (/ size 3) (/ size 4) (/ size 6)
+  (q/camera (/ size 3) (/ size 2) (/ size 6)
             0 0 0
             0 0 -1))
 
@@ -112,16 +112,17 @@
      (draw-color-vector (:r state) (:g state) (:b state)))))
 
 (defn draw-state [state]
-  (q/background 166 205 222)
+  (q/background 5 4 144)
   (q/fill 0 0 0)
+  ;; (q/orbit-control)
   (draw-camera)
 
   (q/translate 0 0 (/ -size 4))
-  (draw-axis false)
+  (draw-axis true)
   (draw-scene @app-state true))
 
 (defn draw-state-top [state]
-  (q/background 166 205 222)
+  (q/background 13 72 99)
   (q/fill 0 0 0)
   (q/orbit-control)
   (draw-axis true)

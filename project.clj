@@ -3,12 +3,12 @@
   :url "http://nathan.iki.fi"
   :license {:name "MIT"
             :url "https://opensource.org/licenses/MIT"}
-  :dependencies [[org.clojure/clojure "1.9.0"]
-                 [quil "3.0.0" :exclusions [cljsjs/p5]]
-                 [cljsjs/p5 "0.9.0-0"]
-                 [reagent "0.8.1"]
+  :dependencies [[cljsjs/p5 "0.9.0-0"]
+                 [figwheel-sidecar "0.5.16"]
+                 [org.clojure/clojure "1.9.0"]
                  [org.clojure/clojurescript "1.10.520"]
-                 [figwheel-sidecar "0.5.16"]]
+                 [quil "3.0.0" :exclusions [cljsjs/p5]]
+                 [reagent "0.8.1"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
             [lein-figwheel "0.5.16"]]

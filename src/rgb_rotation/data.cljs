@@ -8,5 +8,5 @@
                         :r 180 :g 20 :b 120}))
 
 (def tweens 120)
-(def size 380)
-(def scale 0.5)
+(def size 500)
+(def scale 0.6)

@@ -2,11 +2,16 @@
 <html>
   <head>
     <title>rgb-rotation</title>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/turretcss/dist/turretcss.min.css" crossorigin="anonymous">
   </head>
   <body>
-    <div id="controls"></div>
-    <div id="view-3d"></div>
-    <div id="view-projection"></div>
+    <div class="container flex flex-1-1-auto">
+      <div id="controls" class="container"></div>
+      <div id="view-3d"></div>
+      <div id="view-projection"></div>
+    </div>
+    <div class="container">
+    </div>
     <script src="js/main.js"></script>
     <script>rgb_rotation.core.main()</script>
   </body>
