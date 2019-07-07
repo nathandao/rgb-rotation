@@ -3,41 +3,45 @@
             [rgb-rotation.data :refer [app-state tweens]]
             [reagent.core :as r]))
 
-(defn color-input [color-key]
-  [:input {:type "number"
-           :value (color-key @app-state)
-           :min 0
-           :max 255
-           :on-change (fn [e]
-                        (swap!
-                         app-state assoc
-                         color-key
-                         (js/parseInt (.. e -target -value) 10)))}])
+(defn color-input [color-key label]
+  [:label
+   label
+   [:input
+    {:type      "number"
+     :value     (color-key @app-state)
+     :min       0
+     :max       255
+     :on-change (fn [e]
+                  (swap!
+                   app-state assoc
+                   color-key (-> (.. e -target -value)
+                                 (js/parseInt 10))))}]])
 
 (defn slider []
-  [:input {:type "range"
-           :class "info"
-           :value (:current-step @app-state)
-           :min 0
-           :step 1
-           :max tweens
-           :on-change (fn [e]
-                        (swap! app-state assoc
-                               :animating false)
-                        (swap! app-state assoc
-                               :current-step
-                               (js/parseInt (.. e -target -value) 10)))}])
+  [:input
+   {:type      "range"
+    :class     "info"
+    :value     (:step @app-state)
+    :min       0
+    :step      1
+    :max       tweens
+    :on-change (fn [e]
+                 (swap! app-state assoc
+                        :animating false
+                        :step (-> (.. e -target -value)
+                                  (js/parseInt  10))))}])
 
 (defn play-button []
-  [:button {:disabled (>= (:current-step @app-state) tweens)
-            :on-click #(swap! app-state update :animating not)}
+  [:button
+   {:disabled (>= (:step @app-state) tweens)
+    :on-click #(swap! app-state update :animating not)}
    (if (:animating @app-state) "Stop" "Play")])
 
 (defn control-panel[]
   [:div
-   [:label "RED" [color-input :r]]
-   [:label "GREEN" [color-input :g]]
-   [:label "BLUE" [color-input :b]]
+   [color-input :r "RED"]
+   [color-input :g "GREEN"]
+   [color-input :b "BLUE"]
    [play-button]
    [slider]])
 
