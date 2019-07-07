@@ -81,9 +81,9 @@
 (defn draw-rgb-box [fill-box]
     (q/fill 0 0 0 0)
 
-  (q/stroke 255 255 255 100)
-  (q/stroke-weight 2)
-  (q/box max-v)
+  (q/with-stroke [255 255 255]
+    (q/stroke-weight 1.5)
+    (q/box max-v))
 
   (draw-color 0 0 255)
   (draw-color 0 255 0)
@@ -114,17 +114,22 @@
 (defn draw-state [state]
   (q/background 5 4 144)
   (q/fill 0 0 0)
-  ;; (q/orbit-control)
-  (draw-camera)
+  (q/orbit-control)
 
-  (q/translate 0 0 (/ -size 4))
-  (draw-axis true)
+  (q/rotate-x (/ q/PI 3))
+  (q/rotate-z (/ q/PI 3.5))
+
+  (q/translate 50 100 -50)
+  (draw-axis false)
   (draw-scene @app-state true))
 
 (defn draw-state-top [state]
   (q/background 13 72 99)
   (q/fill 0 0 0)
-  (q/orbit-control)
+  (q/camera 0 1 (/ size 2)
+            0 0 0
+            0 0 -1)
+  ;; (q/orbit-control)
   (draw-axis true)
   (draw-scene @app-state))
 

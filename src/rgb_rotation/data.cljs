@@ -9,4 +9,4 @@
 
 (def tweens 120)
 (def size 500)
-(def scale 0.6)
+(def scale 0.55)
