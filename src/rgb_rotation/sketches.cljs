@@ -146,7 +146,7 @@
 (defn draw-rgb-box []
   ;; draw box
   (q/fill 255 255 255 0)
-  (q/stroke 255 255 255 10)
+  (q/stroke 255 255 255 100)
   (q/stroke-weight 1)
   (q/box max-v)
 
