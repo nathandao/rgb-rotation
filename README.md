@@ -24,7 +24,7 @@ This will compile your code and run Google Closure Compiler with advanced optimi
 
 - [x] Animate matrix rotation with top projection
 - [x] Add color input & animation controls
-- [ ] Draw the input color's hexagon
+- [x] Draw the input color's hexagon
 - [ ] Display rotation matrix used for each step
 
 ## License

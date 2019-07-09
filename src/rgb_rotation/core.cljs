@@ -35,7 +35,7 @@
   [:button
    {:disabled (>= (:step @app-state) tweens)
     :on-click #(swap! app-state update :animating not)}
-   (if (:animating @app-state) "Stop" "Play")])
+   (if (:animating @app-state) "Pause" "Animate")])
 
 (defn control-panel[]
   [:div
