@@ -63,7 +63,7 @@
   (let [intervals (-> (/ L t) (/ 2) js/Math.floor)]
     (dotimes [i intervals]
       (q/line (-> (* i 2) (* t)) 0 0
-              (-> (* i 2) (* t) (+ t)) 0 0))))
+              (-> (* i 2) (* t) (+ 2)) 0 0))))
 
 (defn shift-coord [v]
   (- (* scale v) half-v))
@@ -101,13 +101,13 @@
 
     ;; full hexagon
     (q/stroke 255 255 255)
-    (q/stroke-weight 1.5)
+    (q/stroke-weight 1)
     (hexagon-sides L 6)
 
     ;; partial hexagon
     (q/with-translation [0 0 0.5]
       (q/stroke r g b)
-      (q/stroke-weight 2.5)
+      (q/stroke-weight 2)
       (hexagon-sides L h))))
 
 (defn draw-axis [extended]
@@ -187,7 +187,8 @@
   ;; adjust angles for a "nicer" initial 3d view from the side
   (q/with-rotation [(/ pi 3) 1 0 0]
     (q/with-rotation [(/ pi 3.5) 0 0 1]
-      (q/with-translation [50 100 -50]
+     ;; (q/with-translation [50 100 -50]
+     (q/with-translation [50 80 -20]
         (draw-axis false)
         (draw-scene state)))))
 

@@ -3,45 +3,57 @@
             [rgb-rotation.data :refer [app-state tweens]]
             [reagent.core :as r]))
 
-(defn color-input [color-key label]
-  [:label
-   label
-   [:input
-    {:type      "number"
-     :value     (color-key @app-state)
-     :min       0
-     :max       255
-     :on-change (fn [e]
-                  (swap!
-                   app-state assoc
-                   color-key (-> (.. e -target -value)
-                                 (js/parseInt 10))))}]])
-
-(defn slider []
-  [:input
-   {:type      "range"
-    :class     "info"
-    :value     (:step @app-state)
-    :min       0
-    :step      1
-    :max       tweens
-    :on-change (fn [e]
-                 (swap! app-state assoc
-                        :animating false
-                        :step (-> (.. e -target -value)
-                                  (js/parseInt  10))))}])
-
+(defn color-input [color-key color]
+  (let [class-name (str
+                    "range-xs "
+                    (cond
+                      (= color-key :r) "error"
+                      (= color-key :g) "success"
+                      :else            "info"))]
+    [:div {:class "input-group relative"}
+     [:div {:class "position-top-right"}
+      (color-key @app-state)]
+     [:input
+      {:type      "range"
+       :id        color
+       :value     (color-key @app-state)
+       :min       0
+       :max       255
+       :class     class-name
+       :on-change (fn [e]
+                    (swap!
+                     app-state assoc
+                     color-key (-> (.. e -target -value)
+                                   (js/parseInt 10))))}]]))
 (defn play-button []
   [:button
-   {:disabled (>= (:step @app-state) tweens)
+   {:class    "button-pill"
+    :disabled (>= (:step @app-state) tweens)
     :on-click #(swap! app-state update :animating not)}
    (if (:animating @app-state) "Pause" "Animate")])
 
+(defn slider []
+  [:div {:class "input-group relative"}
+   [:input
+    {:type      "range"
+     :class     "warning range-xs"
+     :value     (:step @app-state)
+     :min       0
+     :step      1
+     :max       tweens
+     :on-change (fn [e]
+                  (swap! app-state assoc
+                         :animating false
+                         :step (-> (.. e -target -value)
+                                   (js/parseInt  10))))}]
+
+   ])
+
 (defn control-panel[]
-  [:div
-   [color-input :r "RED"]
-   [color-input :g "GREEN"]
-   [color-input :b "BLUE"]
+  [:div {:class "max-width-s"}
+   [color-input :r "R"]
+   [color-input :g "G"]
+   [color-input :b "B"]
    [play-button]
    [slider]])
 

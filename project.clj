@@ -4,14 +4,14 @@
   :license {:name "MIT"
             :url "https://opensource.org/licenses/MIT"}
   :dependencies [[cljsjs/p5 "0.9.0-0"]
-                 [figwheel-sidecar "0.5.16"]
+                 [figwheel-sidecar "0.5.19"]
                  [org.clojure/clojure "1.9.0"]
                  [org.clojure/clojurescript "1.10.520"]
                  [quil "3.0.0" :exclusions [cljsjs/p5]]
                  [reagent "0.8.1"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
-            [lein-figwheel "0.5.16"]]
+            [lein-figwheel "0.5.19"]]
   :hooks [leiningen.cljsbuild]
 
   :clean-targets ^{:protect false} ["resources/public/js"]
